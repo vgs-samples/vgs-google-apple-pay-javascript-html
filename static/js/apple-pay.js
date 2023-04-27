@@ -42,9 +42,6 @@ const createApplePaySession = () => {
     total: { label: 'Very Good Security', amount: '10.00' },
   }
   var session = new ApplePaySession(8, request);
-  
-  
-
 
   session.onvalidatemerchant = event => {
 
@@ -63,34 +60,54 @@ const createApplePaySession = () => {
       })
   };
 
-  console.log(session)
-
   session.onshippingcontactselected = event => {
     // Do things
   }
   
   session.onpaymentauthorized = token => {
+
+    // show returned data in developer console for debugging
+    console.log(token);
+    // @todo pass payment token to your gateway to process payment
+    // @note DO NOT save the payment credentials for future transactions,
+
+    let url = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
+    let successEl = document.querySelectorAll('#apple-pay .success p')[0]
+    let errorEl = document.querySelectorAll('#apple-pay .error p')[0]
+    let requestEl = document.querySelectorAll('#apple-pay .request p')[0]
+    let responseEl = document.querySelectorAll('#apple-pay .response p')[0]
+
+    requestEl.innerHTML = JSON.stringify(payload, null, 2)
+  
     fetch(url, {
-      method: "POST", 
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: token
-    })
-      .then(function (response) {
-        state.success = 'Success!'
-        session.completePayment({ "status": 0 })
-        state.response = JSON.stringify(JSON.parse(response.data.data), null, 2)
-        passToParent(state)
-      })
-      .catch(function (error) {
-        state.error = error
-        session.completePayment({
-          "status": 1,
-          "errors": [error]
+        method: "POST", 
+        headers: {
+          "Content-Type": "application/json",
+        },
+      body: {
+          token
+        }
+    }).then(res => {
+      if (res.status != 200) {
+        res.text().then(res => {
+          errorEl.innerHTML = res
+          session.completePayment({
+            "status": 1,
+            "errors": [error]
+          })
         })
-        passToParent(state)
+        
+      } else {
+        successEl.innerHTML = 'Success!'
+        responseEl.innerHTML = JSON.stringify(JSON.parse(res.data.data), null, 2)
+        session.completePayment({"status": 0})
+      }
+    }).catch(error => {
+        // Not a processing error, code/fetch error
+        console.log(error)
       });
+    
   }
+
   session.begin()
 }
