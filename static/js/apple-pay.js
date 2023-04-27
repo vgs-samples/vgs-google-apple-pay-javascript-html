@@ -84,9 +84,7 @@ const createApplePaySession = () => {
         headers: {
           "Content-Type": "application/json",
         },
-      body: {
-          token
-        }
+      body: JSON.stringify({token: token})
     }).then(res => {
       if (res.status != 200) res.text().then(res => errorEl.innerHTML = res )
       else {
