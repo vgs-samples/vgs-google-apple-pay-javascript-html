@@ -88,19 +88,12 @@ const createApplePaySession = () => {
           token
         }
     }).then(res => {
-      if (res.status != 200) {
-        res.text().then(res => {
-          errorEl.innerHTML = res
-          session.completePayment({
-            "status": 1,
-            "errors": [error]
-          })
-        })
-        
-      } else {
+      if (res.status != 200) res.text().then(res => errorEl.innerHTML = res )
+      else {
         successEl.innerHTML = 'Success!'
-        responseEl.innerHTML = JSON.stringify(JSON.parse(res.data.data), null, 2)
-        session.completePayment({"status": 0})
+        res.json().then(json => {
+          responseEl.innerHTML = JSON.stringify(JSON.parse(json.data))
+        })
       }
     }).catch(error => {
         // Not a processing error, code/fetch error

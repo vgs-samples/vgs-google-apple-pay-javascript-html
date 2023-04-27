@@ -1,6 +1,3 @@
-VAULT_ID = 'tntxmzpmtvn';
-ORGANIZATION_ID = 'AC5dzmDWXoWwjtHXSBhh9mzw';
-
 const baseRequest = {
     apiVersion: 2,
     apiVersionMinor: 0
@@ -10,7 +7,7 @@ const tokenizationSpecification = {
     type: 'PAYMENT_GATEWAY',
     parameters: {
         "gateway": "verygoodsecurity",
-        "gatewayMerchantId": ORGANIZATION_ID
+        "gatewayMerchantId": "ACmsziNd1zaK1wPseoXvkptS"
     }
 };
 
@@ -69,17 +66,15 @@ function getGooglePaymentDataRequest() {
     paymentDataRequest.allowedPaymentMethods = [cardPaymentMethod];
     paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
     paymentDataRequest.merchantInfo = {
-        // @todo a merchant ID is available for a production environment after approval by Google
-        // See {@link https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist|Integration checklist}
-        merchantId: '12345678901234567890',
-        merchantName: 'Test Merchant'
+      // @todo a merchant ID is available for a production environment after approval by Google
+      // See {@link https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist|Integration checklist}
+      merchantId: '12345678901234567890',
+      merchantName: 'Test Merchant'
     };
 
     paymentDataRequest.transactionInfo = {
-        totalPriceStatus: 'FINAL',
-        totalPrice: '1',
-        currencyCode: 'EUR',
-        countryCode: 'ES',
+      totalPriceStatus: 'NOT_CURRENTLY_KNOWN',
+      currencyCode: 'USD'
     };
 
     return paymentDataRequest;
@@ -144,12 +139,9 @@ function addGooglePayButton() {
  */
 function getGoogleTransactionInfo() {
     return {
-        countryCode: 'ES',
-        currencyCode: 'EUR',
-        totalPriceStatus: 'FINAL',
-        // set to cart total
-        totalPrice: '1.00'
-    };
+      totalPriceStatus: 'NOT_CURRENTLY_KNOWN',
+      currencyCode: 'USD'
+    }
 }
 
 /**
@@ -172,7 +164,8 @@ function prefetchGooglePaymentData() {
  * Show Google Pay payment sheet when Google Pay payment button is clicked
  */
 function onGooglePaymentButtonClicked() {
-    const paymentDataRequest = getGooglePaymentDataRequest();
+  const paymentDataRequest = getGooglePaymentDataRequest();
+  console.log(paymentDataRequest)
     paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
 
     const paymentsClient = getGooglePaymentsClient();
@@ -214,22 +207,21 @@ function processPayment(paymentData) {
   requestEl.innerHTML = JSON.stringify(payload, null, 2)
 
   console.log(payload);
-  
+
   fetch(url, {
       method: "POST", 
       headers: {
         "Content-Type": "application/json",
       },
-      body: payload
+      body: JSON.stringify(payload)
     })
     .then(res => {
-      if (res.status != 200) {
-        res.text().then(res => 
-          errorEl.innerHTML = res
-        )
-      } else {
+      if (res.status != 200) res.text().then(res => errorEl.innerHTML = res )
+      else {
         successEl.innerHTML = 'Success!'
-        responseEl.innerHTML = JSON.stringify(JSON.parse(res.data.data), null, 2)
+        res.json().then(json => {
+          responseEl.innerHTML = JSON.stringify(JSON.parse(json.data))
+        })
       }
     }).catch(error => {
         // Not a processing error, code/fetch error
