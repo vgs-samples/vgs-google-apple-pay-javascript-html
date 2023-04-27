@@ -19,6 +19,7 @@ p {
   font-size: 0.875rem;
   font-weight: 300;
   padding: 5px 0 20px 0;
+  line-break: anywhere;
 }
 
 #logo {
@@ -93,7 +94,6 @@ p {
   height: 50px;
   justify-content: center
 }
-
 
 .not-supported {
   background: #DD6B20;
