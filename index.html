@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="shortcut icon" href="./static/favicon.ico" type="image/x-icon">
+    <script type="text/javascript">
+      const vgs = {
+        VAULT_ID: "tntq31aihwk",
+        ORG_ID: "ACmsziNd1zaK1wPseoXvkptS",
+        GOOGLE_PAY_ROUTE_ID: "dbcb64c8-a58e-40f6-addc-9c8b363bebb3",
+        APPLE_PAY_ROUTE_ID: "0b807ac5-d13b-4511-b7b7-99c4aaa2d0df"
+      }
+    </script>
+    <script src="js/google-pay.js"></script>
+    <script src="js/apple-pay.js"></script>
+    <script async src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()"></script>
+    <script async src="https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js" onload="onApplePayLoaded()"></script>
+    <title>VGS Google & Apple Pay Demo - HTML/JS</title>
+  </head>
+  <body>
+    <div>
+      <div id="logo"><img src="vgs-initials-color.svg"></img></div>
+      <div class="wrapper">
+        <div class="integration" id="google-pay">
+          <h2>
+            Google Pay Report
+          </h2>
+          <ul>
+            <li class="success">
+              <h3>Success</h3>
+              <p>Submit a request to see details.</p>
+            </li>
+            <li class="error">
+              <h3>Error</h3>
+              <p>Submit a request to see details.</p>
+            </li>
+            <li class="request">
+              <h3>Request</h3>
+              <p>Submit a request to see details.</p>
+            </li>
+            <li class="response">
+              <h3>Response</h3>
+              <p>Submit a request to see details.</p>
+            </li>
+          </ul>
+        </div>
+        <div id="divider"></div>
+        <div class="integration" id="apple-pay">
+          <h2>
+            Apple Pay Report
+          </h2>
+          <ul>
+            <li class="success">
+              <h3>Success</h3>
+              <p>Submit a request to see details.</p>
+            </li>
+            <li class="error">
+              <h3>Error</h3>
+              <p>Submit a request to see details.</p>
+            </li>
+            <li class="request">
+              <h3>Request</h3>
+              <p>Submit a request to see details.</p>
+            </li>
+            <li class="response">
+              <h3>Response</h3>
+              <p>Submit a request to see details.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="wrapper">
+        <div class="button" id="google"> 
+          <!-- Button will be added by google-pay.js -->
+        </div>
+        <div id="divider"></div>
+        <div class="button" id="apple">
+          <apple-pay-button onClick="createApplePaySession()"  buttonstyle="black" type="pay" locale="en" style="height: 45px"></apple-pay-button>
+          <div class="not-supported">
+            <span>
+              <svg viewBox="0 0 24 24" focusable="false" class="chakra-icon emotion-css-cache-qk6lof"><path fill="currentColor" d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z"></path></svg>
+            </span>
+            <p>Apple Pay is not supported in this configuration</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

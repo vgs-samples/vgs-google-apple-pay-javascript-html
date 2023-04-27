@@ -1,0 +1,127 @@
+h2, h3, p {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  padding: 20px 0 40px 20px;
+}
+
+h3 {
+  padding: 10px 0 10px; 
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+p {
+  font-size: 0.875rem;
+  font-weight: 300;
+  padding: 5px 0 20px 0;
+}
+
+#logo {
+  display: block;
+  margin: 0 auto;
+  width: 150px;
+  height: 45px;
+  padding: 35px 0;
+}
+#logo img {
+  width: 150px
+}
+
+.wrapper {
+  width: 80%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: normal;
+  margin: 25px auto 0;
+}
+
+#divider {
+  width: 3%;
+  height: 100%;
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+}
+
+
+.integration {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  width: 45%;
+  height: auto;
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+  border-radius: 5px;
+}
+
+.integration ul {
+  display: block;
+  width: 90%;
+  margin: 0 0 0 20px;
+  height: auto;
+}
+
+.integration ul li {
+  display: inline-block;
+  width: 100%; 
+  height: auto;
+  border-bottom: 1px solid #E2E8F0;
+  margin: 0 0 5px 0;
+}
+.integration ul li:last-of-type {
+  border-bottom: none;
+}
+
+.wrapper .button {
+  display: flex;
+  width: 45%; 
+  height: 50px;
+  justify-content: center
+}
+
+
+.not-supported {
+  background: #DD6B20;
+  height: 100%;
+  width: 100%;
+}
+.not-supported.hidden {
+  display: none;
+}
+
+.not-supported span {
+  width: 25px;
+  height: 25px;
+  color: white;
+  margin: 13.5px 15px;
+  display: inline-block
+}
+.not-supported span svg {
+  width: inherit;
+  height: inherit;
+}
+
+.not-supported p {
+  color: white;
+  width: auto;
+  height: inherit;
+  font-size: 1rem;
+  vertical-align: middle;
+  padding: 13.5px 0 0 0;
+  display: inline-block;
+}

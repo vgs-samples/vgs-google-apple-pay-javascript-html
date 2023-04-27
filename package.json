@@ -1,0 +1,33 @@
+{
+  "name": "vgs-google-apple-pay-javascript-html",
+  "version": "1.0.0",
+  "description": "VGS Google and Apple Pay HTML/JS demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vgs-samples/vgs-google-apple-pay-javascript-html.git"
+  },
+  "keywords": [
+    "vgs",
+    "verygoodsecurity",
+    "apple",
+    "google",
+    "pay",
+    "javascript",
+    "html"
+  ],
+  "author": "Very Good Security",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vgs-samples/vgs-google-apple-pay-javascript-html/issues"
+  },
+  "homepage": "https://github.com/vgs-samples/vgs-google-apple-pay-javascript-html#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.1",
+    "request": "^2.88.2"
+  }
+}
