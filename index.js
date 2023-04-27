@@ -2,7 +2,7 @@
 const https = require("https");
 const fs = require("fs");
 const path = require("path")
-import('node-fetch');
+
 
 // Import the express module
 const express = require("express");
@@ -36,31 +36,42 @@ app.get('/', (req,res)=>{
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
-// app.get('/session', (req, res) => {
-//   console.log("testasdas")
-//   const session = fetch("https://apple-pay-gateway.apple.com/paymentservices/paymentSession",
-//     {
-//       method: "POST", 
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: {
-//         merchantIdentifier: "merchant.verygoodsecurity.demo.applepay",
-//         displayName: "Very Good Security, Inc",
-//         initiative: "web",
-//         initiativeContext: ""
-//       },
-//       agentOptions: {
-//           pfx: fs.readFileSync(
-//             path.resolve(__dirname, 'applepay.p12')
-//           ),
-//           passphrase: 'ISBN5o6o12o1623;.',
-//         }
-//     }
-//   ).then(resp => resp.json()).then(json => {
-//     console.log("test", json)
-//     res.json(json)
-//   })
+app.get('/session', (req, res) => {
+  console.log("testasdas")
 
+  var options = {
+    hostname: "apple-pay-gateway.apple.com",
+    port: 443,
+    path: '/paymentSession',
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    pfx: fs.readFileSync(
+      path.resolve(__dirname, 'applepay.p12')
+    ),
+    passphrase: '********',
+    body: {
+      merchantIdentifier: "merchant.verygoodsecurity.demo.applepay",
+      displayName: "Very Good Security",
+      initiative: "web",
+      initiativeContext: ""
+    }
+  };
   
-// })
+  var post = https.request(options, (res) => {
+    console.log('statusCode:', res.statusCode);
+    console.log('headers:', res.headers);
+
+    post.on('data', (d) => {
+      process.stdout.write(d);
+    });
+  });
+
+  post.on('error', (e) => {
+    console.error(e);
+  });
+
+  post.end();
+
+})
