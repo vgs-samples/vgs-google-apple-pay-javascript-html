@@ -1,0 +1,1 @@
+# vgs-google-apple-pay-javascript-html
