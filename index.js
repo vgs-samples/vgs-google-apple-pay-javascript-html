@@ -1,7 +1,4 @@
-// Import builtin NodeJS modules to instantiate the service
-const https = require("https");
-const fs = require("fs");
-const path = require("path")
+const axios = require("axios")
 
 
 // Import the express module
@@ -13,7 +10,7 @@ const app = express();
 app.use(express.static('static'))
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log("Server is runing at port " + process.env.PORT);
+    console.log(`Server is runing at port ${process.env.PORT || 3000}`);
   });
 
 // Create an try point route for the Express app listening on port 4000.
@@ -36,15 +33,14 @@ app.get('/session', (req, res) => {
       "Content-Type": "application/json",
   }
 
-  fetch(url, {
-      method: "POST",
+  axios.post(url, data, {
       headers: customHeaders,
-      body: data,
   })
-    .then((response) => response.json())
-    .then((data) => {
+  .then(({ data }) => {
       console.log(data);
-      res.send(data)
-    });
-
+  })
+  .catch((error) => {
+      console.error(error);
+  });
+  
 })
