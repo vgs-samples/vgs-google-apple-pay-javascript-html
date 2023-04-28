@@ -25,35 +25,26 @@ app.get('/', (req,res)=>{
 
 app.get('/session', (req, res) => {
 
-  var options = {
-    hostname: "apple-pay-gateway.apple.com",
-    port: 443,
-    path: '/paymentSession',
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: {
+  const url = 'https://apple-pay-gateway.apple.com/paymentSession'
+  const data = {
       merchantIdentifier: "merchant.verygoodsecurity.demo.applepay",
       displayName: "Very Good Security",
       initiative: "web",
       initiativeContext: "Demo"
-    }
-  };
-  
-  var post = https.request(options, (res) => {
-    console.log('statusCode:', res.statusCode);
-    console.log('headers:', res.headers);
+    };
+  const customHeaders = {
+      "Content-Type": "application/json",
+  }
 
-    post.on('data', (d) => {
-      process.stdout.write(d);
+  fetch(url, {
+      method: "POST",
+      headers: customHeaders,
+      body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      res.send(data)
     });
-  });
-
-  post.on('error', (e) => {
-    console.error(e);
-  });
-
-  post.end();
 
 })
