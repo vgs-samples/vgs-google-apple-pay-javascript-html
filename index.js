@@ -19,7 +19,7 @@ https
   .createServer(
     app
   )
-  .listen(3000, () => {
+  .listen(process.env.PORT || 5000, () => {
     console.log("Server is runing at port 3000");
   });
 
