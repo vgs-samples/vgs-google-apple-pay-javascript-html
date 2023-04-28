@@ -39,7 +39,7 @@ app.get('/session', (req, res) => {
   fetch(url, {
       method: "POST",
       headers: customHeaders,
-      body: JSON.stringify(data),
+      body: data,
   })
     .then((response) => response.json())
     .then((data) => {
