@@ -17,12 +17,6 @@ app.set('views', path.join(__dirname, 'views'));
 // Use a callback function to tell when the server is created.
 https
   .createServer(
-		// Provide the private and public key to the server by reading each
-		// file's content with the readFileSync() method.
-    {
-      key: fs.readFileSync("key.pem"),
-      cert: fs.readFileSync("cert.pem"),
-    },
     app
   )
   .listen(3000, () => {
@@ -37,7 +31,6 @@ app.get('/', (req,res)=>{
 })
 
 app.get('/session', (req, res) => {
-  console.log("testasdas")
 
   var options = {
     hostname: "apple-pay-gateway.apple.com",
