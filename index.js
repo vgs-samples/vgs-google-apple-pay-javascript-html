@@ -27,7 +27,7 @@ https
 // This code tells the service to listed to any request coming to the / route.
 // Once the request is received, it will display a message "Hello from express server."
 app.get('/', (req,res)=>{
-    res.sendFile(path.join(__dirname, '/index.html'));
+    res.sendFile("./static/index.html");
 })
 
 app.get('/session', (req, res) => {
