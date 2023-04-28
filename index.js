@@ -33,15 +33,11 @@ app.get('/session', (req, res) => {
     headers: {
       "Content-Type": "application/json"
     },
-    pfx: fs.readFileSync(
-      path.resolve(__dirname, 'applepay.p12')
-    ),
-    passphrase: '********',
     body: {
       merchantIdentifier: "merchant.verygoodsecurity.demo.applepay",
       displayName: "Very Good Security",
       initiative: "web",
-      initiativeContext: ""
+      initiativeContext: "Demo"
     }
   };
   
