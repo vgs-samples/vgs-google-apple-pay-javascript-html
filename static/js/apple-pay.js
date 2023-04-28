@@ -28,9 +28,7 @@ const onApplePayLoaded = () => {
 
 const createApplePaySession = () => {
 
-  console.log("TEETETETETE")
-
-  const backend = "https://localhost:3000/session"
+  const backend = document.location.href + "/session"
   const url = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
   const ApplePaySession = window.ApplePaySession
 
