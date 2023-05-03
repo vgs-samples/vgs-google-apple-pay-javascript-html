@@ -7,6 +7,7 @@ const express = require("express");
 // Instantiate an Express application
 const app = express();
 
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use(express.static('static'))
 
 app.listen(process.env.PORT || 3000, () => {
