@@ -1,6 +1,7 @@
 const axios = require("axios")
 const enforce = require('express-sslify');
 const express = require("express");
+const https = require("https")
 
 // Instantiate an Express application
 const app = express();
@@ -29,13 +30,17 @@ app.get('/session', (req, res) => {
       "Content-Type": "application/json",
   }
 
-  axios.post(url, data, {
-      headers: customHeaders,
+
+  const httpsAgent = new https.Agent({
+    rejectUnauthorized: false, // (NOTE: this will disable client verification)
+    cert: fs.readFileSync("./cert.pem"),
+    key: fs.readFileSync("./key.pem"),
+    passphrase: "ISBN5o6o12o1623;."
   })
-  .then(({ data }) => {
+  
+  axios.post(url, data,  { httpsAgent }).then(({ data }) => {
       console.log(data);
-  })
-  .catch((error) => {
+  }).catch((error) => {
       console.error(error);
   });
   
