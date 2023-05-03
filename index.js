@@ -1,7 +1,5 @@
 const axios = require("axios")
-
-
-// Import the express module
+const enforce = require('express-sslify');
 const express = require("express");
 
 // Instantiate an Express application
@@ -14,9 +12,6 @@ app.listen(process.env.PORT || 3000, () => {
     console.log(`Server is runing at port ${process.env.PORT || 3000}`);
   });
 
-// Create an try point route for the Express app listening on port 4000.
-// This code tells the service to listed to any request coming to the / route.
-// Once the request is received, it will display a message "Hello from express server."
 app.get('/', (req,res)=>{
     res.sendFile("index.html")
 })
