@@ -19,7 +19,8 @@ app.get('/', (req,res)=>{
 
 app.get('/session', (req, res) => {
 
-  const url = 'https://apple-pay-gateway.apple.com/paymentSession'
+  
+  const url = 'https://tntq31aihwk.sandbox.verygoodproxy.com/paymentSession'
   const data = {
       merchantIdentifier: "merchant.verygoodsecurity.demo.applepay",
       displayName: "Very Good Security",
@@ -31,14 +32,8 @@ app.get('/session', (req, res) => {
   }
 
 
-  const httpsAgent = new https.Agent({
-    rejectUnauthorized: false, // (NOTE: this will disable client verification)
-    cert: fs.readFileSync("./cert.pem"),
-    key: fs.readFileSync("./key.pem"),
-    passphrase: "ISBN5o6o12o1623;."
-  })
   
-  axios.post(url, data,  { httpsAgent }).then(({ data }) => {
+  axios.post(url, data).then(({ data }) => {
       console.log(data);
   }).catch((error) => {
       console.error(error);
