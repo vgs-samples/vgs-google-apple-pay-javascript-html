@@ -4,7 +4,11 @@ const fs = require("fs")
 const path = require('path')
 const axios = require('axios') 
 
-// Instantiate an Express application
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json()
+
+
+
 const app = express();
 
 app.use(express.static('static'))
@@ -17,12 +21,9 @@ app.get('/', (req,res)=>{
     res.sendFile("index.html")
 })
 
-app.post('/paymentSession', async (req, res) => {
-  
-  console.log(req)
-  console.log(JSON.stringify(req))
+app.post('/paymentSession', jsonParser,  async (req, res) => {
 
-  const { appleUrl } = req.json
+  const { appleUrl } = req.body
 
   // use set the certificates for the POST request
   httpsAgent = new https.Agent({
