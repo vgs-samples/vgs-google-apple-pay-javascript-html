@@ -1,5 +1,6 @@
 
 const ApplePaySession = window.ApplePaySession
+
 const onApplePayLoaded = () => {
 
   const ApplePaySession = window.ApplePaySession
@@ -86,21 +87,21 @@ const createApplePaySession = () => {
     let responseEl = document.querySelectorAll('#apple-pay .response p')[0]
     
 
-    requestEl.innerHTML = JSON.stringify(details.token)
+    requestEl.innerHTML = details.token
   
-    axios.post(backend, {token: details.token},
+    axios.post(backend, { token: details.token },
       {
         headers: {
           "Content-Type": "application/json",
           'Access-Control-Allow-Origin': '*'
         },
-    }).then(res => {
-      if (res.status != 200) {
-        errorEl.innerHTML = JSON.stringify(res)
-        callback({approved: false})
+      }).then(res => {
+        if (res.status != 200){
+          errorEl.innerHTML = res
+          callback({ approved: false })
       } else {
         successEl.innerHTML = 'Success!'
-        responseEl.innerHTML = JSON.stringify(res)
+        responseEl.innerHTML = JSON.stringify(json)
         callback({approved: true})
       }
     }).catch(error => {
