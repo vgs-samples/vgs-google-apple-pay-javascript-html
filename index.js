@@ -36,7 +36,7 @@ app.post('/paymentSession', jsonParser,  async (req, res) => {
       appleUrl,
       {
           merchantIdentifier: 'merchant.verygoodsecurity.demo.applepay',
-          initiativeContext: 'vgs-google-apple-pay-react.herokuapp.com',
+          initiativeContext: 'vgs-google-apple-pay-demo-js.herokuapp.com',
           initiative: "web",
           displayName: "Very Good Security Demo Account"
       },
