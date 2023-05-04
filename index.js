@@ -19,7 +19,7 @@ app.get('/', (req,res)=>{
 
 app.post('/paymentSession', async (req, res) => {
   
-    const { appleUrl } = req.body
+    const { appleUrl } = req.json
 
     // use set the certificates for the POST request
     httpsAgent = new https.Agent({
