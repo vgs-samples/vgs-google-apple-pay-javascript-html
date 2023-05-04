@@ -47,8 +47,12 @@ const createApplePaySession = () => {
 
     // Call your own server to request a new merchant session.
     // See: https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/requesting_an_apple_pay_payment_session
-    fetch(backend, {
-      method: "GET", 
+   fetch(backend, {
+        method: "POST", 
+        headers: {
+          "Content-Type": "application/json",
+        },
+      body: JSON.stringify({appleUrl: event.validationURL})
     }).then(res => res.json()) // Parse response as JSON.
       .then(merchantSession => {
         session.completeMerchantValidation(merchantSession);
