@@ -19,27 +19,30 @@ app.get('/', (req,res)=>{
 
 app.post('/paymentSession', async (req, res) => {
   
-    const { appleUrl } = req.json
+  console.log(req)
+  console.log(JSON.stringify(req))
 
-    // use set the certificates for the POST request
-    httpsAgent = new https.Agent({
-        rejectUnauthorized: false,
-        cert: fs.readFileSync(path.join(__dirname, './apple-pay/certificate_sandbox.pem')),
-        key: fs.readFileSync(path.join(__dirname, './apple-pay/certificate_sandbox.key')),
-    })
+  const { appleUrl } = req.json
 
-    response = await axios.post(
-        appleUrl,
-        {
-            merchantIdentifier: 'merchant.verygoodsecurity.demo.applepay',
-            initiativeContext: 'vgs-google-apple-pay-demo-js.herokuapp.com',
-            initiative: "web",
-            displayName: "Very Good Security Demo Account"
-        },
-        {
-            httpsAgent,
-        }
-    )
+  // use set the certificates for the POST request
+  httpsAgent = new https.Agent({
+      rejectUnauthorized: false,
+      cert: fs.readFileSync(path.join(__dirname, './apple-pay/certificate_sandbox.pem')),
+      key: fs.readFileSync(path.join(__dirname, './apple-pay/certificate_sandbox.key')),
+  })
+
+  response = await axios.post(
+      appleUrl,
+      {
+          merchantIdentifier: 'merchant.verygoodsecurity.demo.applepay',
+          initiativeContext: 'vgs-google-apple-pay-demo-js.herokuapp.com',
+          initiative: "web",
+          displayName: "Very Good Security Demo Account"
+      },
+      {
+          httpsAgent,
+      }
+  )
   res.send(response.data)
   
 })
