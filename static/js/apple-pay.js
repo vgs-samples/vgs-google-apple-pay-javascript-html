@@ -63,10 +63,6 @@ const createApplePaySession = () => {
       })
   };
 
-  session.completeMerchantValidation = merchantSession => {
-
-  }
-
   session.onpaymentauthorized = token => {
 
     // show returned data in developer console for debugging
