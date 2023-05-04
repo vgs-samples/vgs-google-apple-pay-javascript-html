@@ -31,8 +31,9 @@ app.get('/paymentSession', async (req, res) => {
         appleUrl,
         {
             merchantIdentifier: 'merchant.verygoodsecurity.demo.applepay',
-            domainName: 'vgs-google-apple-pay-demo-js.herokuapp.com',
-            displayName: 'VGS Demo',
+            initiativeContext: 'vgs-google-apple-pay-demo-js.herokuapp.com',
+            initiative: "web",
+            displayName: "Very Good Security Demo Account"
         },
         {
             httpsAgent,
