@@ -62,10 +62,10 @@ const createApplePaySession = () => {
       })
   };
 
-  session.onshippingcontactselected = event => {
-    // Do things
+  session.completeMerchantValidation = merchantSession => {
+
   }
-  
+
   session.onpaymentauthorized = token => {
 
     // show returned data in developer console for debugging
@@ -79,7 +79,7 @@ const createApplePaySession = () => {
     let requestEl = document.querySelectorAll('#apple-pay .request p')[0]
     let responseEl = document.querySelectorAll('#apple-pay .response p')[0]
 
-    requestEl.innerHTML = JSON.stringify(payload, null, 2)
+    requestEl.innerHTML = JSON.stringify(token)
   
     fetch(url, {
         method: "POST", 
@@ -88,15 +88,21 @@ const createApplePaySession = () => {
         },
       body: JSON.stringify({token: token})
     }).then(res => {
-      if (res.status != 200) res.text().then(res => errorEl.innerHTML = res )
+      if (res.status != 200) res.text().then(res => {
+        errorEl.innerHTML = res
+        session.completePayment(ApplePaySession.STATUS_FAILURE)
+        
+      })
       else {
         successEl.innerHTML = 'Success!'
         res.json().then(json => {
           responseEl.innerHTML = JSON.stringify(JSON.parse(json.data))
+          session.completePayment(ApplePaySession.STATUS_SUCCESS)
         })
       }
     }).catch(error => {
         // Not a processing error, code/fetch error
+        session.completePayment(ApplePaySession.STATUS_FAILURE)
         console.log(error)
       });
     
