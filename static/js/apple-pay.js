@@ -28,7 +28,7 @@ const onApplePayLoaded = () => {
 const createApplePaySession = () => {
 
   const backend = document.location.href + "paymentSession"
-  const url = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
+  const VGS_URL = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
   const ApplePaySession = window.ApplePaySession
 
   var request = {
@@ -46,14 +46,12 @@ const createApplePaySession = () => {
 
     // Call your own server to request a new merchant session.
     // See: https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/requesting_an_apple_pay_payment_session
-   fetch(backend, {
+   axios.post(backend, {appleUrl: event.validationURL}, {
         method: "POST", 
         headers: {
           "Content-Type": "application/json",
-        },
-      body: JSON.stringify({appleUrl: event.validationURL})
-    }).then(res => res.json()) // Parse response as JSON.
-     .then(merchantSession => {
+        }
+    }).then(merchantSession => {
         console.log(merchantSession)
         session.completeMerchantValidation(merchantSession);
       })
@@ -78,7 +76,6 @@ const createApplePaySession = () => {
 
   const performTransaction = (details, callback) => {
 
-    const backend = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
 
     let successEl = document.querySelectorAll('#apple-pay .success p')[0]
     let errorEl = document.querySelectorAll('#apple-pay .error p')[0]
@@ -88,7 +85,7 @@ const createApplePaySession = () => {
 
     requestEl.innerHTML = JSON.stringify(details.token)
   
-    axios.post(backend, {token: details.token},
+    axios.post(VGS_URL, {token: details.token},
       {
         headers: {
           "Content-Type": "application/json",
@@ -96,11 +93,11 @@ const createApplePaySession = () => {
         },
     }).then(res => {
       if (res.status != 200) {
-        errorEl.innerHTML = JSON.stringify(res)
+        errorEl.innerHTML = JSON.stringify(res.data)
         callback({approved: false})
       } else {
         successEl.innerHTML = 'Success!'
-        responseEl.innerHTML = JSON.stringify(res)
+        responseEl.innerHTML = JSON.stringify(res.data)
         callback({approved: true})
       }
     }).catch(error => {
