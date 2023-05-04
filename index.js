@@ -16,8 +16,8 @@ app.get('/', (req,res)=>{
     res.sendFile("index.html")
 })
 
-app.post('/paymentSession', async (req, res) => {
-    const { appleUrl } = req.body;
+app.get('/paymentSession', async (req, res) => {
+    const appleUrl = "https://apple-pay-gateway.apple.com/paymentSession"
 
     // use set the certificates for the POST request
     httpsAgent = new https.Agent({
