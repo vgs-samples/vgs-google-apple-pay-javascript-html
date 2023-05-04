@@ -53,8 +53,8 @@ const createApplePaySession = () => {
           "Content-Type": "application/json",
         }
     }).then(res => {
-        console.log(res)
-        session.completeMerchantValidation(res);
+        console.log(res.data)
+        session.completeMerchantValidation(res.data);
       })
       .catch(err => {
         console.error("Error fetching merchant session", err);
