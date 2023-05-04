@@ -22,8 +22,8 @@ app.get('/paymentSession', async (req, res) => {
     // use set the certificates for the POST request
     httpsAgent = new https.Agent({
         rejectUnauthorized: false,
-        cert: fs.readFileSync('./apple-pay/certificate.pem'),
-        key: fs.readFileSync('./apple-pay/sandbox.key'),
+        cert: fs.readFileSync(path.join(__dirname, './apple-pay/certificate_sandbox.pem')),
+        key: fs.readFileSync(path.join(__dirname, './apple-pay/certificate_sandbox.key')),
     })
 
     response = await axios.post(
