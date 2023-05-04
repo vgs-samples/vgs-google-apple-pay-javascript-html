@@ -47,16 +47,14 @@ const createApplePaySession = () => {
 
     // Call your own server to request a new merchant session.
     // See: https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/requesting_an_apple_pay_payment_session
-   fetch(backend, {
-        method: "POST", 
+    axios.post(backend, { appleUrl: event.validationURL },
+      {
         headers: {
           "Content-Type": "application/json",
-        },
-      body: JSON.stringify({appleUrl: event.validationURL})
-    }).then(res => res.json()) // Parse response as JSON.
-     .then(merchantSession => {
-        console.log(merchantSession)
-        session.completeMerchantValidation(merchantSession);
+        }
+    }).then(res => {
+        console.log(res)
+        session.completeMerchantValidation(res);
       })
       .catch(err => {
         console.error("Error fetching merchant session", err);
