@@ -1,6 +1,5 @@
 
 const ApplePaySession = window.ApplePaySession
-
 const onApplePayLoaded = () => {
 
   const ApplePaySession = window.ApplePaySession
