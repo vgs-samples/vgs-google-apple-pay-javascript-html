@@ -54,7 +54,8 @@ const createApplePaySession = () => {
         },
       body: JSON.stringify({appleUrl: event.validationURL})
     }).then(res => res.json()) // Parse response as JSON.
-      .then(merchantSession => {
+     .then(merchantSession => {
+        console.log(merchantSession)
         session.completeMerchantValidation(merchantSession);
       })
       .catch(err => {
