@@ -86,7 +86,7 @@ const createApplePaySession = () => {
     let responseEl = document.querySelectorAll('#apple-pay .response p')[0]
     
 
-    requestEl.innerHTML = details.token
+    requestEl.innerHTML = JSON.stringify(details.token)
   
     axios.post(backend, {token: details.token},
       {
@@ -95,16 +95,13 @@ const createApplePaySession = () => {
           'Access-Control-Allow-Origin': '*'
         },
     }).then(res => {
-      if (res.status != 200) res.text().then(res => {
-        errorEl.innerHTML = res
+      if (res.status != 200) {
+        errorEl.innerHTML = JSON.stringify(res)
         callback({approved: false})
-      })
-      else {
+      } else {
         successEl.innerHTML = 'Success!'
-        res.json().then(json => {
-          responseEl.innerHTML = JSON.stringify(json)
-          callback({approved: true})
-        })
+        responseEl.innerHTML = JSON.stringify(json)
+        callback({approved: true})
       }
     }).catch(error => {
         // Not a processing error, code/fetch error
