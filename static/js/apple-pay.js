@@ -28,7 +28,7 @@ const onApplePayLoaded = () => {
 const createApplePaySession = () => {
 
   const backend = document.location.href + "paymentSession"
-  const VGS_URL = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
+  const url = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
   const ApplePaySession = window.ApplePaySession
 
   var request = {
@@ -78,6 +78,7 @@ const createApplePaySession = () => {
 
   const performTransaction = (details, callback) => {
 
+    const backend = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
 
     let successEl = document.querySelectorAll('#apple-pay .success p')[0]
     let errorEl = document.querySelectorAll('#apple-pay .error p')[0]
@@ -87,7 +88,7 @@ const createApplePaySession = () => {
 
     requestEl.innerHTML = JSON.stringify(details.token)
   
-    axios.post(VGS_URL, {token: details.token},
+    axios.post(backend, {token: details.token},
       {
         headers: {
           "Content-Type": "application/json",
