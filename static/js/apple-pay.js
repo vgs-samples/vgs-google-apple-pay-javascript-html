@@ -63,47 +63,55 @@ const createApplePaySession = () => {
       })
   };
 
-  session.onpaymentauthorized = token => {
 
-    // show returned data in developer console for debugging
-    console.log(token);
-    // @todo pass payment token to your gateway to process payment
-    // @note DO NOT save the payment credentials for future transactions,
+  session.onpaymentauthorized = function (event) {
+      performTransaction(event.payment, function (outcome) {
+        if (outcome.approved) {
+          session.completePayment(ApplePaySession.STATUS_SUCCESS)
+          console.log(outcome)
+        } else {
+          session.completePayment(ApplePaySession.STATUS_FAILURE)
+          console.log(outcome)
+        }
+      })
+  }
 
-    let url = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
+
+  const performTransaction = (details, callback) => {
+
+    const backend = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
+
     let successEl = document.querySelectorAll('#apple-pay .success p')[0]
     let errorEl = document.querySelectorAll('#apple-pay .error p')[0]
     let requestEl = document.querySelectorAll('#apple-pay .request p')[0]
     let responseEl = document.querySelectorAll('#apple-pay .response p')[0]
+    
 
-    requestEl.innerHTML = JSON.stringify(token)
+    requestEl.innerHTML = details.token
   
-    fetch(url, {
-        method: "POST", 
+    axios.post(backend, {token: details.token},
+      {
         headers: {
           "Content-Type": "application/json",
+          'Access-Control-Allow-Origin': '*'
         },
-      body: JSON.stringify({token: token})
     }).then(res => {
       if (res.status != 200) res.text().then(res => {
         errorEl.innerHTML = res
-        session.completePayment(ApplePaySession.STATUS_FAILURE)
-        
+        callback({approved: false})
       })
       else {
         successEl.innerHTML = 'Success!'
         res.json().then(json => {
-          responseEl.innerHTML = JSON.stringify(JSON.parse(json.data))
-          session.completePayment(ApplePaySession.STATUS_SUCCESS)
+          responseEl.innerHTML = JSON.stringify(json)
+          callback({approved: true})
         })
       }
     }).catch(error => {
         // Not a processing error, code/fetch error
-        session.completePayment(ApplePaySession.STATUS_FAILURE)
+        callback({approved: false})
         console.log(error)
       });
-    
   }
-
   session.begin()
 }
