@@ -7,7 +7,7 @@ const tokenizationSpecification = {
     type: 'PAYMENT_GATEWAY',
     parameters: {
         "gateway": "verygoodsecurity",
-        "gatewayMerchantId": "ACmsziNd1zaK1wPseoXvkptS"
+        "gatewayMerchantId": vgs.ORG_ID
     }
 };
 

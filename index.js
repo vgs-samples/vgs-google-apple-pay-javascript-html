@@ -1,8 +1,8 @@
-const axios = require("axios")
-const enforce = require('express-sslify');
 const express = require("express");
 const https = require("https")
 const fs = require("fs")
+const path = require('path')
+
 // Instantiate an Express application
 const app = express();
 
@@ -17,26 +17,26 @@ app.get('/', (req,res)=>{
     res.sendFile("index.html")
 })
 
-app.get('/session', (req, res) => {
+app.post('/paymentSession', async (req, res) => {
+    const { appleUrl } = req.body;
 
-  
-  const url = 'https://tntq31aihwk.sandbox.verygoodproxy.com/paymentSession'
-  const data = {
-      merchantIdentifier: "merchant.verygoodsecurity.demo.applepay",
-      displayName: "Very Good Security",
-      initiative: "web",
-      initiativeContext: "Demo"
-    };
-  const customHeaders = {
-      "Content-Type": "application/json",
-  }
+    // use set the certificates for the POST request
+    httpsAgent = new https.Agent({
+        rejectUnauthorized: false,
+        cert: fs.readFileSync(path.join(__dirname, './apple-pay/certificate.pem')),
+        key: fs.readFileSync(path.join(__dirname, './apple-pay/sandbox.key')),
+    })
 
-
-  
-  axios.post(url, data).then(({ data }) => {
-      console.log(data);
-  }).catch((error) => {
-      console.error(error);
-  });
-  
+    response = await axios.post(
+        appleUrl,
+        {
+            merchantIdentifier: 'merchant.verygoodsecurity.demo.applepay',
+            domainName: 'vgs-google-apple-pay-demo-js.herokuapp.com',
+            displayName: 'VGS Demo',
+        },
+        {
+            httpsAgent,
+        }
+    )
+    res.send(response.data)
 })
