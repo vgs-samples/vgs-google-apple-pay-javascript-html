@@ -99,8 +99,8 @@ const createApplePaySession = () => {
           callback({ approved: false })
       } else {
         successEl.innerHTML = 'Success!'
-        console.log(res)
-        responseEl.innerHTML = JSON.stringify(res.json)
+        console.log(res.data.json)
+        responseEl.innerHTML = res.data.json
         callback({approved: true})
       }
     }).catch(error => {
