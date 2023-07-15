@@ -85,7 +85,7 @@ const createApplePaySession = () => {
     let responseEl = document.querySelectorAll('#apple-pay .response p')[0]
     
 
-    requestEl.innerHTML = JSON.stringify(details.token)
+    requestEl.innerHTML = JSON.stringify(details.token, null, 2)
   
     axios.post(backend, { token: details.token },
       {
@@ -99,9 +99,8 @@ const createApplePaySession = () => {
           callback({ approved: false })
       } else {
         successEl.innerHTML = 'Success!'
-        
-        const data = 
-        responseEl.innerHTML = res.apple_pay_token
+        console.log(res)
+        responseEl.innerHTML = JSON.stringify(res.json)
         callback({approved: true})
       }
     }).catch(error => {
