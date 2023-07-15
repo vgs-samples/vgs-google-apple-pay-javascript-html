@@ -100,7 +100,7 @@ const createApplePaySession = () => {
       } else {
         successEl.innerHTML = 'Success!'
         console.log(res.data.json)
-        responseEl.innerHTML = res.data.json
+        responseEl.innerHTML = JSON.stringify(res.data.json, null, 4)
         callback({approved: true})
       }
     }).catch(error => {
