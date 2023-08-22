@@ -87,7 +87,13 @@ const createApplePaySession = () => {
 
     requestEl.innerHTML = JSON.stringify(details.token, null, 2)
   
-    axios.post(backend, { token: details.token },
+    axios.post(backend, {
+        eWalletDto: {
+          ewalletPaymentObj: {
+            token: details.token
+          }
+        }
+      },
       {
         headers: {
           "Content-Type": "application/json",
