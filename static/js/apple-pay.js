@@ -85,9 +85,8 @@ const createApplePaySession = () => {
     let responseEl = document.querySelectorAll('#apple-pay .response p')[0]
     
 
-    requestEl.innerHTML = JSON.stringify(details.token, null, 2)
-  
-    axios.post(backend, {
+
+    data = {
         "customerLedgerId": 123456,
         "paymentAmount": 12.5,
         "source": null,
@@ -111,7 +110,9 @@ const createApplePaySession = () => {
             "IP": "127.0.0.1"
           }
         }
-      },
+    }
+    requestEl.innerHTML = JSON.stringify(data, null, 2)
+    axios.post(backend, data,
       {
         headers: {
           "Content-Type": "application/json",
