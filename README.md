@@ -2,6 +2,8 @@
 
 ![Alt text](/static/splash.png?raw=true "Title")
 
+[See here for the Live Demo](https://vgs-google-apple-pay-demo-js.herokuapp.com/)
+
 ## To run the app: 
 
 1. Copy the `.key` and `.pem` files you created from the [VGS Apple Pay integration guide](https://www.verygoodsecurity.com/docs/integrations/apple-pay/) into the `/apple-pay/` folder. 
