@@ -86,6 +86,7 @@ const createApplePaySession = () => {
     
 
     requestEl.innerHTML = JSON.stringify(details.token, null, 2)
+    
     axios.post(backend, details.token,
       {
         headers: {
