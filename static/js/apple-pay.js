@@ -87,30 +87,9 @@ const createApplePaySession = () => {
 
 
     data = {
-        "customerLedgerId": 123456,
-        "paymentAmount": 12.5,
-        "source": null,
-        "eWalletDto": {
-          "ewallet": true,
-          "ewalletType": "applepay",
-          ewalletPaymentObj: {
-            token: details.token
-          },
-          "browserInfo": {
-            "ScreenWidth": 375,
-            "ScreenHeight": 812,
-            "ColorDepth": 32,
-            "UserAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
-            "TimeZoneOffset": -60,
-            "TimeZone": -60,
-            "Language": "en-GB",
-            "JavaEnabled": false,
-            "JavascriptEnabled": true,
-            "AcceptHeader": "application/json",
-            "IP": "127.0.0.1"
-          }
-        }
+      token: details.token
     }
+    
     requestEl.innerHTML = JSON.stringify(data, null, 2)
     axios.post(backend, data,
       {
