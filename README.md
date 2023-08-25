@@ -1,8 +1,8 @@
-# Very Good Security - Google and Apple Pay React Example
+# Very Good Security - Google and Apple Pay React
 
 ![Alt text](/static/splash.png?raw=true "Title")
 
-[See here for the Live Demo](https://vgs-google-apple-pay-demo-js.herokuapp.com/)
+### [See here for a Live Demo](https://vgs-google-apple-pay-demo-js.herokuapp.com/)
 
 ## To run the app: 
 
