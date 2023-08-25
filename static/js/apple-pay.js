@@ -85,13 +85,8 @@ const createApplePaySession = () => {
     let responseEl = document.querySelectorAll('#apple-pay .response p')[0]
     
 
-
-    data = {
-      token: details.token
-    }
-    
-    requestEl.innerHTML = JSON.stringify(data, null, 2)
-    axios.post(backend, data,
+    requestEl.innerHTML = JSON.stringify(details.token, null, 2)
+    axios.post(backend, details.token,
       {
         headers: {
           "Content-Type": "application/json",
